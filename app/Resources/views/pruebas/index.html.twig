@@ -1,0 +1,39 @@
+{% extends 'layout.html.twig' %}
+{% block container %}
+    {{ parent() }}
+    {{ texto }}
+    <hr>
+    {#ESTO ES UN COMENTARIO
+    <H1>HOLA</H1>
+    #}
+    {{ fruta.pera }}
+    {% if fruta.pera ends with "r" %}
+        {{ fruta.manzana }}
+    {% endif %}
+    <hr>
+    {% set variable = "Hola Twig" %}
+    {{ variable }}
+    <hr>
+    {% if productos|length >= 4 %}
+        <ul>
+            {% for producto in productos %}
+                <li>{{ producto.producto }} - {{ producto.precio }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <hr>
+    {% set fecha = date("-2 days", "Europe/Madrid") %}
+    {{ dump(fecha) }}
+    <hr>
+    {% include('pruebas/partial.html.twig') %}
+    <hr>
+    {{ min([76,99,58]) }}
+    <hr>
+    {{ random(["Batman", "Los juegos del hambre", "Piratas del caribe", "Transformers"]) }}
+    <hr>
+    <ul>
+        {% for i in range(0, 25, 3) %}
+            <li>{{ i }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
