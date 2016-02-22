@@ -9,7 +9,7 @@ class HelperVistas extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'generateTable' => new \Twig_Function_Method($this, 'generateTable')
+            new \Twig_SimpleFunction("generateTable", array($this, 'generateTable'))
         );
     }
 
