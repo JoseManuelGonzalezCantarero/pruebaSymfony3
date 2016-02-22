@@ -23,7 +23,10 @@
     {% endif %}
     <hr>
     {% set fecha = date("-2 days", "Europe/Madrid") %}
-    {{ dump(fecha) }}
+    {% set texto = "       araeasedras   ," %}
+    {{ fecha.date|date("d-m-Y") }}
+    <hr>
+    {{ texto|trim(",") }}
     <hr>
     {% include('pruebas/partial.html.twig') %}
     <hr>
