@@ -111,4 +111,27 @@ class PruebasController extends Controller
 
         die();
     }
+
+    /**
+     * @Route("/pruebas/delete/{id}", name="pruebasDelete")
+     */
+    public function delateAction($id)
+    {
+        $em = $this->get('doctrine')->getManager();
+        $cursos_repo = $em->getRepository('AppBundle:Curso');
+        $curso = $cursos_repo->find($id);
+        $em->remove($curso);
+        $flush = $em->flush();
+
+        if($flush != null)
+        {
+            echo 'EL curso no se ha borrado correctamente';
+        }
+        else
+        {
+            echo 'El curso se ha borrado correctamente';
+        }
+
+        die();
+    }
 }
