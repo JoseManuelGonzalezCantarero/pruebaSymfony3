@@ -144,18 +144,18 @@ class PruebasController extends Controller
      */
     public function nativeSqlAction()
     {
-        $em = $this->get('doctrine')->getManager();
-        $db = $em->getConnection();
-        $query = "SELECT * FROM cursos";
-        $stmt = $db->prepare($query);
-        $params = array();
-        $stmt->execute($params);
-
-        $cursos = $stmt->fetchAll();
-
+        $em = $this->getDoctrine()->getManager();
+//        $db = $em->getConnection();
+//        $query = "SELECT * FROM cursos";
+//        $stmt = $db->prepare($query);
+//        $params = array();
+//        $stmt->execute($params);
+        //$cursos = $stmt->fetchAll();
+        $query = $em->createQuery("SELECT c FROM AppBundle:Curso c WHERE c.precio > :precio")->setParameter("precio", 51);
+        $cursos = $query->getResult();
         foreach($cursos as $curso)
         {
-            echo $curso["titulo"].'<br>';
+            echo $curso->getTitulo().'<br>';
         }
 
         die();
