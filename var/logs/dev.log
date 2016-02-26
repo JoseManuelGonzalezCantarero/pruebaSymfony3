@@ -753,3 +753,6 @@
 [2016-02-26 11:28:47] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
 [2016-02-26 11:28:47] doctrine.DEBUG: SELECT t0.id AS id_1, t0.titulo AS titulo_2, t0.descripcion AS descripcion_3, t0.precio AS precio_4 FROM cursos t0 [] []
 [2016-02-26 11:28:47] doctrine.DEBUG: SELECT t0.id AS id_1, t0.titulo AS titulo_2, t0.descripcion AS descripcion_3, t0.precio AS precio_4 FROM cursos t0 WHERE t0.precio = ? LIMIT 1 [80] []
+[2016-02-26 11:34:43] request.INFO: Matched route "pruebasNative". {"route_parameters":{"_controller":"AppBundle\\Controller\\PruebasController::nativeSqlAction","_route":"pruebasNative"},"request_uri":"http://127.0.0.1:8000/pruebas/native"} []
+[2016-02-26 11:34:43] security.INFO: Populated the TokenStorage with an anonymous Token. [] []
+[2016-02-26 11:34:43] doctrine.DEBUG: SELECT * FROM cursos [] []

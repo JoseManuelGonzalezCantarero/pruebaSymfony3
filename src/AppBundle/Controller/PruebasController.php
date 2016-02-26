@@ -138,4 +138,26 @@ class PruebasController extends Controller
 
         die();
     }
+
+    /**
+     * @Route("/pruebas/native", name="pruebasNative")
+     */
+    public function nativeSqlAction()
+    {
+        $em = $this->get('doctrine')->getManager();
+        $db = $em->getConnection();
+        $query = "SELECT * FROM cursos";
+        $stmt = $db->prepare($query);
+        $params = array();
+        $stmt->execute($params);
+
+        $cursos = $stmt->fetchAll();
+
+        foreach($cursos as $curso)
+        {
+            echo $curso["titulo"].'<br>';
+        }
+
+        die();
+    }
 }
