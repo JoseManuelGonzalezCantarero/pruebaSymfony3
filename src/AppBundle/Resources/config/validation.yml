@@ -1,0 +1,13 @@
+AppBundle\Entity\Curso:
+  properties:
+    titulo:
+      - NotBlank: {message: "El título no puede estar vacío"}
+      - Length:
+          min: 2
+          minMessage: "El título debe tener más de dos caracteres"
+    descripcion:
+      - NotBlank: {message: "La descripción no puede estar vacía"}
+    precio:
+      - Type:
+          type: numeric
+          message: "El precio tiene que ser numérico"
