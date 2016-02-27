@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Curso;
+use AppBundle\Form\CursoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -162,5 +163,17 @@ class PruebasController extends Controller
         }
 
         die();
+    }
+
+    /**
+     * @Route("/pruebas/form", name="pruebasForm")
+     */
+    public function formAction()
+    {
+        $curso = new Curso();
+        $form = $this->createForm(CursoType::class, $curso);
+        return $this->render('pruebas/form.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
