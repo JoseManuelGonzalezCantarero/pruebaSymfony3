@@ -1,9 +1,9 @@
 # -- Symfony2 -----------------------------------------
-app/bootstrap.php.cache
-app/bootstrap_cache.php.cache
+var/bootstrap.php.cache
+var/bootstrap_cache.php.cache
 app/config/parameters.ini
 app/config/parameters.yml
-app/cache/*
+var/cache/*
 app/logs/*
 vendor/*
 web/bundles/*
