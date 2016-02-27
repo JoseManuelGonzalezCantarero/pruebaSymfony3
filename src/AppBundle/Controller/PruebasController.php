@@ -7,6 +7,7 @@ use AppBundle\Form\CursoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Controlador de prueba del curso Symfony3
@@ -195,5 +196,27 @@ class PruebasController extends Controller
             'status' => $status,
             'data' => $data
         ]);
+    }
+
+    /**
+     * @Route("/pruebas/validar-email/{email}", name="pruebasValidarEmail")
+     */
+    public function validarEmailAction($email)
+    {
+        $emailConstraint = new Assert\Email();
+        $emailConstraint->message = "Pasame un buen correo";
+
+        $error = $this->get("validator")->validate($email, $emailConstraint);
+
+        if(count($error) == 0)
+        {
+            echo "<h1>Correo válido</h1>";
+        }
+        else
+        {
+            echo $error[0]->getMessage();
+        }
+
+        die();
     }
 }
