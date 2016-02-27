@@ -155,11 +155,7 @@ class PruebasController extends Controller
 //        $query = $em->createQuery("SELECT c FROM AppBundle:Curso c WHERE c.precio > :precio")->setParameter("precio", 51);
 //        $cursos = $query->getResult();
 
-        $query = $cursos_repo->createQueryBuilder("c")
-                    ->where("c.precio > :precio")
-                    ->setParameter("precio", 51)
-                    ->getQuery();
-        $cursos = $query->getResult();
+        $cursos = $cursos_repo->getCursos();
         foreach($cursos as $curso)
         {
             echo $curso->getTitulo().'<br>';
