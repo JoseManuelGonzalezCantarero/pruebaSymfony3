@@ -8,9 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/blog_old", name="blog")
      */
-    public function indexAction()
+    public function indexOld()
     {
 //        $em = $this->getDoctrine()->getManager();
 //        $entry_repo = $em->getRepository("BlogBundle:Entry");
@@ -67,6 +67,14 @@ class DefaultController extends Controller
 
         die();
 
+        return $this->render('BlogBundle:Default:index.html.twig');
+    }
+
+    /**
+     * @Route("/blog", name="blog")
+     */
+    public function indexAction()
+    {
         return $this->render('BlogBundle:Default:index.html.twig');
     }
 }
