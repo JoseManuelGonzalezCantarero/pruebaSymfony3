@@ -24,7 +24,7 @@ class EntryTag
     /**
      * @var Entry
      *
-     * @ORM\ManyToOne(targetEntity="Entry")
+     * @ORM\ManyToOne(targetEntity="Entry", inversedBy="entryTag")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="entry_id", referencedColumnName="id")
      * })

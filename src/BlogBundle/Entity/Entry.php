@@ -2,6 +2,7 @@
 
 namespace BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,6 +69,18 @@ class Entry
      * })
      */
     private $category;
+
+    /**
+     * @var EntryTag
+     *
+     * @ORM\OneToMany(targetEntity="EntryTag", cascade={"persist"}, mappedBy="entry")
+     */
+    protected $entryTag;
+
+    public function __construct()
+    {
+        $this->entryTag = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -221,5 +234,23 @@ class Entry
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * @param Tag $tag
+     * @return $this
+     */
+    public function addEntryTag($tag)
+    {
+        $this->entryTag[] = $tag;
+        return $this;
+    }
+
+    /**
+     * @return EntryTag|ArrayCollection
+     */
+    public function getEntryTag()
+    {
+        return $this->entryTag;
     }
 }
