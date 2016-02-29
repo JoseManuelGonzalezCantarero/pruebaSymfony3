@@ -12,21 +12,55 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+//        $em = $this->getDoctrine()->getManager();
+//        $entry_repo = $em->getRepository("BlogBundle:Entry");
+//        $entries = $entry_repo->findAll();
+//
+//        foreach($entries as $entry)
+//        {
+//            echo $entry->getTitle().'<br>';
+//            echo $entry->getCategory()->getName().'<br>';
+//            echo $entry->getUser()->getName().'<br>';
+//
+//            $tags = $entry->getEntryTag();
+//
+//            foreach($tags as $tag)
+//            {
+//                echo $tag->getTag()->getName().", ";
+//            }
+//            echo '<hr>';
+//        }
+
+//        $em = $this->getDoctrine()->getManager();
+//        $category_repo = $em->getRepository("BlogBundle:Category");
+//        $categories = $category_repo->findAll();
+//
+//        foreach($categories as $category)
+//        {
+//            echo $category->getName().'<br>';
+//
+//            $entries = $category->getEntries();
+//
+//            foreach($entries as $entry)
+//            {
+//                echo $entry->getTitle().", ";
+//            }
+//            echo '<hr>';
+//        }
+
         $em = $this->getDoctrine()->getManager();
-        $entry_repo = $em->getRepository("BlogBundle:Entry");
-        $entries = $entry_repo->findAll();
+        $tag_repo = $em->getRepository("BlogBundle:Tag");
+        $tags = $tag_repo->findAll();
 
-        foreach($entries as $entry)
+        foreach($tags as $tag)
         {
-            echo $entry->getTitle().'<br>';
-            echo $entry->getCategory()->getName().'<br>';
-            echo $entry->getUser()->getName().'<br>';
+            echo $tag->getName().'<br>';
 
-            $tags = $entry->getEntryTag();
+            $entryTag = $tag->getEntryTag();
 
-            foreach($tags as $tag)
+            foreach($entryTag as $entry)
             {
-                echo $tag->getTag()->getName().", ";
+                echo $entry->getEntry()->getTitle().", ";
             }
             echo '<hr>';
         }

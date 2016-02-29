@@ -2,6 +2,7 @@
 
 namespace BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +35,18 @@ class Category
      * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
+
+    /**
+     * @var Entry
+     *
+     * @ORM\OneToMany(targetEntity="Entry", cascade={"persist"}, mappedBy="category")
+     */
+    protected $entry;
+
+    public function __construct()
+    {
+        $this->entry = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -91,5 +104,13 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return Entry|ArrayCollection
+     */
+    public function getEntries()
+    {
+        return $this->entry;
     }
 }

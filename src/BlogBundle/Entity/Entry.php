@@ -63,7 +63,7 @@ class Entry
     /**
      * @var Category
      *
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="entry")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })
@@ -234,16 +234,6 @@ class Entry
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * @param Tag $tag
-     * @return $this
-     */
-    public function addEntryTag($tag)
-    {
-        $this->entryTag[] = $tag;
-        return $this;
     }
 
     /**
