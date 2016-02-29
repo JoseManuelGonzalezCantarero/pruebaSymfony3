@@ -3,6 +3,7 @@
 namespace BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users")
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -62,6 +63,30 @@ class User
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $image;
+
+    // AUTH
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array($this->getRoles());
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
+
+    // END AUTH
 
     /**
      * Get id

@@ -71,7 +71,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/", name="index")
      */
     public function indexAction()
     {
