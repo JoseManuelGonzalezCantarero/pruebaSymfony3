@@ -15,9 +15,16 @@
             <label>Contraseña: </label>
             <input type="password" id="password" name="_password" value="" class="form-control">
             <br>
-            <input type="submit" value="Entrar" class="btn-success">
+            <input type="submit" value="Entrar" class="btn btn-success">
             <input type="hidden" name="_target_path" value="{{ path('login') }}">
         </form>
+    </div>
+
+    <div class="col-lg-4">
+        <h2>Regístrate</h2>
+        <hr>
+        {{ form_start(form, {'action':'', 'method':'POST'}) }}
+        {{ form_end(form) }}
     </div>
     <div class="clearfix"></div>
 {% endblock %}
