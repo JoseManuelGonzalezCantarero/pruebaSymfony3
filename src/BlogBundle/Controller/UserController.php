@@ -35,28 +35,38 @@ class UserController extends Controller
         {
             if($form->isValid())
             {
-                $user = new User();
-                $user->setName($form->get("name")->getData());
-                $user->setSurname($form->get("surname")->getData());
-                $user->setEmail($form->get("email")->getData());
-
-                $factory = $this->get('security.encoder_factory');
-                $encoder = $factory->getEncoder($user);
-                $password = $encoder->encodePassword($form->get("password")->getData(), $user->getSalt());
-                $user->setPassword($password);
-                $user->setRole('ROLE_USER');
-                $user->setImage(null);
-
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $flush = $em->flush();
-                if($flush == null)
+                $user_repo = $em->getRepository('BlogBundle:User');
+                $user = $user_repo->findOneBy(array("email"=>$form->get("email")->getData()));
+                if(count($user) == 0)
                 {
-                    $status = "El usuario se ha registrado correctamente";
+                    $user = new User();
+                    $user->setName($form->get("name")->getData());
+                    $user->setSurname($form->get("surname")->getData());
+                    $user->setEmail($form->get("email")->getData());
+
+                    $factory = $this->get('security.encoder_factory');
+                    $encoder = $factory->getEncoder($user);
+                    $password = $encoder->encodePassword($form->get("password")->getData(), $user->getSalt());
+                    $user->setPassword($password);
+                    $user->setRole('ROLE_USER');
+                    $user->setImage(null);
+
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($user);
+                    $flush = $em->flush();
+                    if($flush == null)
+                    {
+                        $status = "El usuario se ha registrado correctamente";
+                    }
+                    else
+                    {
+                        $status = "No te has registrado correctamente";
+                    }
                 }
                 else
                 {
-                    $status = "No te has registrado correctamente";
+                    $status = "El usuario ya existe";
                 }
             }
             else
