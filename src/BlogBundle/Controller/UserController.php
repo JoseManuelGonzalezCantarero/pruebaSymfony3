@@ -7,9 +7,17 @@ use BlogBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
 {
+    private $session;
+
+    public function __construct()
+    {
+        $this->session = new Session();
+    }
+
     /**
      * @Route("/login", name="login")
      */
@@ -23,33 +31,36 @@ class UserController extends Controller
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
-
-        if($form->isValid())
+        if($form->isSubmitted())
         {
-            $user = new User();
-            $user->setName($form->get("name")->getData());
-            $user->setSurname($form->get("surname")->getData());
-            $user->setEmail($form->get("email")->getData());
-            $user->setPassword($form->get("password")->getData());
-            $user->setRole('ROLE_USER');
-            $user->setImage(null);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $flush = $em->flush();
-            if($flush == null)
+            if($form->isValid())
             {
-                $status = "El usuario se ha registrado correctamente";
+                $user = new User();
+                $user->setName($form->get("name")->getData());
+                $user->setSurname($form->get("surname")->getData());
+                $user->setEmail($form->get("email")->getData());
+                $user->setPassword($form->get("password")->getData());
+                $user->setRole('ROLE_USER');
+                $user->setImage(null);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $flush = $em->flush();
+                if($flush == null)
+                {
+                    $status = "El usuario se ha registrado correctamente";
+                }
+                else
+                {
+                    $status = "No te has registrado correctamente";
+                }
             }
             else
             {
                 $status = "No te has registrado correctamente";
             }
 
-        }
-        else
-        {
-            $status = "No te has registrado correctamente";
+            $this->session->getFlashBag()->add("status", $status);
         }
 
         return $this->render('BlogBundle:user:login.html.twig', array(
