@@ -13,20 +13,20 @@
         {% endfor %}
         <table class="table table-bordered">
             <tr>
-                <th>
-                    Nombre
-                </th>
-                <th>
-                    Descripción
-                </th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Eliminar</th>
             </tr>
             {% for tag in tags %}
                 <tr>
+                    <td>{{ tag.name }}</td>
+                    <td>{{ tag.description }}</td>
                     <td>
-                        {{ tag.name }}
-                    </td>
-                    <td>
-                        {{ tag.description }}
+                        {% if tag.entryTag|length == 0 %}
+                            <a href="{{ path('tagsDelete', {'id':tag.id}) }}" class="btn btn-danger">Eliminar</a>
+                        {% elseif  tag.entryTag|length >= 1 %}
+                            Etiqueta en uso
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
