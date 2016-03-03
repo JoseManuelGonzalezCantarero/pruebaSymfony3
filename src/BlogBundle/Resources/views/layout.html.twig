@@ -40,6 +40,8 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     {% if app.user != null %}
+                                        <li><a href="{{ path('tagsIndex') }}">Etiquetas</a></li>
+                                        <li role="separator" class="divider"></li>
                                         <li><a href="{{ path('logout') }}">Salir</a></li>
                                     {% else %}
                                         <li><a href="{{ path('login') }}">Entrar</a></li>
