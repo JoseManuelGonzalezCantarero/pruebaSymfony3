@@ -21,29 +21,32 @@ class EntryRepository extends EntityRepository
 
         }
         $tags = explode(',', $tags);
-        foreach($tags as $tag)
-        {
-            $isset_tag = $tag_repo->findOneBy(array('name' => $tag));
-            if(count($isset_tag) == 0)
-            {
-                $tag_obj = new Tag();
-                $tag_obj->setName($tag);
-                $tag_obj->setDescription($tag);
 
-                if(!empty(trim($tag)))
+            foreach($tags as $tag)
+            {
+                if($tag != '')
                 {
-                    $em->persist($tag_obj);
-                    $em->flush();
+                    $isset_tag = $tag_repo->findOneBy(array('name' => $tag));
+                    if(count($isset_tag) == 0)
+                    {
+                        $tag_obj = new Tag();
+                        $tag_obj->setName($tag);
+                        $tag_obj->setDescription($tag);
+
+                        if(!empty(trim($tag)))
+                        {
+                            $em->persist($tag_obj);
+                            $em->flush();
+                        }
+                    }
+                    $tag = $tag_repo->findOneBy(array("name"=>$tag));
+                    $entryTag = new EntryTag();
+                    $entryTag->setEntry($entry);
+                    $entryTag->setTag($tag);
+                    $em->persist($entryTag);
                 }
             }
-            $tag = $tag_repo->findOneBy(array("name"=>$tag));
-            $entryTag = new EntryTag();
-            $entryTag->setEntry($entry);
-            $entryTag->setTag($tag);
-            $em->persist($entryTag);
-        }
         $flush = $em->flush();
-
         return $flush;
     }
 }

@@ -46,8 +46,10 @@ class EntryType extends AbstractType
             ->add('image', FileType::class, array(
                 "label" => "Imagen:",
                 "attr" => array(
-                    "class" => "form-control"
-                )
+                    "class" => "form-control",
+                ),
+                "data_class" => null,
+                "required" => ""
             ))
 //            ->add('user', EntityType::class, array(
 //                "label" => "Título",
@@ -65,7 +67,8 @@ class EntryType extends AbstractType
                 "label" => "Etiquetas:",
                 "attr" => array(
                     "class" => "form-control"
-                )
+                ),
+                "required" => ""
             ))
             ->add('Guardar', SubmitType::class, array("attr"=>array(
                 "class" => "form-submit btn btn-success"

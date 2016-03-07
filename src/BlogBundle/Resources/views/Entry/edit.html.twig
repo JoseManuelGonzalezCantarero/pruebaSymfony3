@@ -1,0 +1,15 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="col-lg-6">
+        <h2>Editar entrada : {{ entry.title }}</h2>
+        {{ form_start(form, {'enctype':'multipart/form-data'}) }}
+            {% if (entry.image != '') %}
+                <label>Imagen:</label>
+                <img width="100" src="{{ asset('uploads/' ~ entry.image)}}">
+                {{ form_widget(form.image) }}
+            {% endif %}
+        {{ form_end(form) }}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

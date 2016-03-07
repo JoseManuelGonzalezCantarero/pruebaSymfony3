@@ -28,6 +28,7 @@
             {% if (app.user.id is defined and (entry.user.id == app.user.id)) %}
                 <p>
                     <a class="btn btn-danger" href="{{ path('entriesDelete', {'id':entry.id}) }}">Eliminar</a>
+                    <a class="btn btn-warning" href="{{ path('entriesEdit', {'id':entry.id}) }}">Editar</a>
                 </p>
             {% endif %}
             <hr>
