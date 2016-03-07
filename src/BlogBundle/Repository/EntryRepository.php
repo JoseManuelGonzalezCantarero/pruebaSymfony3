@@ -16,9 +16,11 @@ class EntryRepository extends EntityRepository
         {
             $entry = $this->findOneBy(array('title' => $title, 'category' => $category, 'user' => $user));
         }
+        else
+        {
 
+        }
         $tags = explode(',', $tags);
-
         foreach($tags as $tag)
         {
             $isset_tag = $tag_repo->findOneBy(array('name' => $tag));
@@ -27,11 +29,14 @@ class EntryRepository extends EntityRepository
                 $tag_obj = new Tag();
                 $tag_obj->setName($tag);
                 $tag_obj->setDescription($tag);
-                $em->persist($tag_obj);
-                $em->flush();
-            }
-            $tag = $tag_repo->findOneBy(array('name' => $tag));
 
+                if(!empty(trim($tag)))
+                {
+                    $em->persist($tag_obj);
+                    $em->flush();
+                }
+            }
+            $tag = $tag_repo->findOneBy(array("name"=>$tag));
             $entryTag = new EntryTag();
             $entryTag->setEntry($entry);
             $entryTag->setTag($tag);
