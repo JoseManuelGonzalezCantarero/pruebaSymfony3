@@ -19,7 +19,7 @@ class EntryController extends Controller
     }
 
     /**
-     * @Route("/entries/index", name="entriesIndex")
+     * @Route("/", name="entriesIndex")
      */
     public function indexAction()
     {
@@ -28,7 +28,7 @@ class EntryController extends Controller
         $category_repo = $em->getRepository('BlogBundle:Category');
         $entries = $entry_repo->findAll();
         $categories = $category_repo->findAll();
-        return $this->render('BlogBundle:Entry:index.html.twig', array('entries' => $entries, 'categories' => $categories));
+        return $this->render('BlogBundle:Default:index.html.twig', array('entries' => $entries, 'categories' => $categories));
     }
 
     /**
