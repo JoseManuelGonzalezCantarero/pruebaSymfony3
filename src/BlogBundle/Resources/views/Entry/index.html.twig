@@ -24,6 +24,9 @@
                     {{ et.tag.name }}
                 {% endfor %}
             </p>
+            <p>
+                <a class="btn btn-danger" href="{{ path('entriesDelete', {'id':entry.id}) }}">Eliminar</a>
+            </p>
             <hr>
             <div class="clearfix"></div>
         </div>

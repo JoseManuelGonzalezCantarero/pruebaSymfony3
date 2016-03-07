@@ -91,4 +91,32 @@ class EntryController extends Controller
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @Route("/entries/delete/{id}", name="entriesDelete")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entry_repo = $em->getRepository('BlogBundle:Entry');
+        $entry_tag_repo = $em->getRepository('BlogBundle:EntryTag');
+
+        $entry = $entry_repo->find($id);
+        $entryTags = $entry_tag_repo->findBy(array("entry" => $entry));
+        foreach($entryTags as $et)
+        {
+            if(is_object($et))
+            {
+                $em->remove($et);
+                $em->flush();
+            }
+        }
+        if(is_object($entry))
+        {
+            $em->remove($entry);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('entriesIndex');
+    }
 }
