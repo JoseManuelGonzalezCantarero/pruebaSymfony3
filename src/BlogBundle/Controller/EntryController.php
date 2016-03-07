@@ -19,6 +19,17 @@ class EntryController extends Controller
     }
 
     /**
+     * @Route("/entries/index", name="entriesIndex")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entry_repo = $em->getRepository('BlogBundle:Entry');
+        $entries = $entry_repo->findAll();
+        return $this->render('BlogBundle:Entry:index.html.twig', array('entries' => $entries));
+    }
+
+    /**
      * @Route("/entries/add", name="entriesAdd")
      */
     public function addAction(Request $request)
@@ -71,7 +82,7 @@ class EntryController extends Controller
             }
 
             $this->session->getFlashBag()->add('status', $status);
-            //return $this->redirectToRoute('categoriesIndex');
+            return $this->redirectToRoute('entriesIndex');
         }
 
         return $this->render('BlogBundle:Entry:add.html.twig', array(

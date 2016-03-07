@@ -1,0 +1,31 @@
+{% extends "BlogBundle::layout.html.twig" %}
+
+{% block content %}
+    {% for message in app.session.flashBag().get('status') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for entry in entries %}
+        <div class="col-lg-11">
+            <p class="pull-left" style="margin-right: 20px;">
+                {% if (entry.image != '') %}
+                    <img width="200" src="{{ asset('uploads/' ~ entry.image)}}">
+                {% else %}
+                    <div>Sin imagen</div>
+                {% endif %}
+            </p>
+            <p><strong>{{ entry.title }}</strong></p>
+            <p>{{ entry.category.name }}</p>
+            <p>
+                {% for et in entry.entryTag %}
+                    {{ et.tag.name }}
+                {% endfor %}
+            </p>
+            <hr>
+            <div class="clearfix"></div>
+        </div>
+
+    {% endfor %}
+    <div class="clearfix"></div>
+{% endblock %}
