@@ -41,6 +41,7 @@
                                 <ul class="dropdown-menu">
                                     {% if app.user != null %}
                                         <li><a href="{{ path('tagsIndex') }}">Etiquetas</a></li>
+                                        <li><a href="{{ path('categoriesIndex') }}">Categorías</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{{ path('logout') }}">Salir</a></li>
                                     {% else %}

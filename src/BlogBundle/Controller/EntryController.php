@@ -31,29 +31,36 @@ class EntryController extends Controller
         {
             if($form->isValid())
             {
-//                $entry = new Entry();
-//                $entry->setName($form->get('name')->getData());
-//                $entry->setDescription($form->get('description')->getData());
-//
-//                $em = $this->getDoctrine()->getManager();
-//                $em->persist($category);
-//                $flush = $em->flush();
-//
-//                if($flush == null)
-//                {
-//                    $status = "La categoría se ha creado correctamente";
-//                }
-//                else
-//                {
-//                    $status = "Error al añadir la categoría";
-//                }
+                $em = $this->getDoctrine()->getManager();
+                $category_repo = $em->getRepository('BlogBundle:Category');
+
+                $entry = new Entry();
+                $entry->setTitle($form->get('title')->getData());
+                $entry->setContent($form->get('content')->getData());
+                $entry->setStatus($form->get('status')->getData());
+                $entry->setImage(null);
+                $category = $category_repo->find($form->get('category')->getData());
+                $entry->setCategory($category);
+                $user = $this->getUser();
+                $entry->setUser($user);
+
+                $em->persist($entry);
+                $flush = $em->flush();
+                if($flush == null)
+                {
+                    $status = "La entrada se ha creado correctamente";
+                }
+                else
+                {
+                    $status = "Error al añadir la entrada";
+                }
             }
             else
             {
-                $status = "La categoría no se ha creado porque el formulario no es válido";
+                $status = "La entrada no se ha creado porque el formulario no es válido";
             }
 
-            //$this->session->getFlashBag()->add('status', $status);
+            $this->session->getFlashBag()->add('status', $status);
             //return $this->redirectToRoute('categoriesIndex');
         }
 
