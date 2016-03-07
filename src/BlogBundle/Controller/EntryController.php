@@ -33,6 +33,7 @@ class EntryController extends Controller
             {
                 $em = $this->getDoctrine()->getManager();
                 $category_repo = $em->getRepository('BlogBundle:Category');
+                $entry_repo = $em->getRepository('BlogBundle:Entry');
 
                 $entry = new Entry();
                 $entry->setTitle($form->get('title')->getData());
@@ -52,6 +53,9 @@ class EntryController extends Controller
 
                 $em->persist($entry);
                 $flush = $em->flush();
+
+                $entry_repo->saveEntryTags($form['tags']->getData(), $form['title']->getData(), $category, $user);
+
                 if($flush == null)
                 {
                     $status = "La entrada se ha creado correctamente";
