@@ -70,11 +70,11 @@ class DefaultController extends Controller
         return $this->render('BlogBundle:Default:index.html.twig');
     }
 
-    /**
-     * @Route("/", name="index")
-     */
-    public function indexAction()
-    {
-        return $this->render('BlogBundle:Default:index.html.twig');
-    }
+//    /**
+//     * @Route("/", name="index")
+//     */
+//    public function indexAction()
+//    {
+//        return $this->render('BlogBundle:Default:index.html.twig');
+//    }
 }
