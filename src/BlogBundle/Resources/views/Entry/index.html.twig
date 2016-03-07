@@ -19,14 +19,17 @@
             </p>
             <p><strong>{{ entry.title }}</strong></p>
             <p>{{ entry.category.name }}</p>
+            <p>Autor: {{ entry.user.name }}</p>
             <p>
                 {% for et in entry.entryTag %}
                     {{ et.tag.name }}
                 {% endfor %}
             </p>
+            {% if (app.user.id is defined and (entry.user.id == app.user.id)) %}
             <p>
                 <a class="btn btn-danger" href="{{ path('entriesDelete', {'id':entry.id}) }}">Eliminar</a>
             </p>
+            {% endif %}
             <hr>
             <div class="clearfix"></div>
         </div>
