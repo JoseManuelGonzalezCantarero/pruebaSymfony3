@@ -8,6 +8,7 @@ app/logs/*
 vendor/*
 web/bundles/*
 web/css/*
+/var/logs/dev.log
 web/js/*
 web/uploads/*
 
