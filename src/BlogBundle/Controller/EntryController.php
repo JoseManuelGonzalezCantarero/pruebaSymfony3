@@ -131,6 +131,21 @@ class EntryController extends Controller
         $entry_repo = $em->getRepository('BlogBundle:Entry');
         $category_repo = $em->getRepository('BlogBundle:Category');
         $entry = $entry_repo->find($id);
+        $tags = '';
+        $i = 0;
+        $total = count($entry->getEntryTag());
+        foreach($entry->getEntryTag() as $entryTag)
+        {
+            $i++;
+            if($i == $total)
+            {
+                $tags .= $entryTag->getTag()->getName();
+            }
+            else
+            {
+                $tags .= $entryTag->getTag()->getName().', ';
+            }
+        }
 
         $form = $this->createForm(EntryType::class, $entry);
         $form->handleRequest($request);
@@ -157,6 +172,18 @@ class EntryController extends Controller
             $em->persist($entry);
             $flush = $em->flush();
 
+            $entry_tag_repo = $em->getRepository('BlogBundle:EntryTag');
+            $entry = $entry_repo->find($id);
+            $entryTags = $entry_tag_repo->findBy(array("entry" => $entry));
+            foreach($entryTags as $et)
+            {
+                if(is_object($et))
+                {
+                    $em->remove($et);
+                    $em->flush();
+                }
+            }
+
             $entry_repo->saveEntryTags($form['tags']->getData(), $form['title']->getData(), $category, $user);
 
             if($flush == null)
@@ -172,10 +199,10 @@ class EntryController extends Controller
         }
         else
         {
-            $status = 'El formulario no es válido';
             return $this->render('BlogBundle:Entry:edit.html.twig', array(
                 'form' => $form->createView(),
-                'entry' => $entry
+                'entry' => $entry,
+                'tags' => $tags
             ));
         }
     }
