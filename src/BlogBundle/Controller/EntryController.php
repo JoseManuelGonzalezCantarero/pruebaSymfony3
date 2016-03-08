@@ -19,16 +19,25 @@ class EntryController extends Controller
     }
 
     /**
-     * @Route("/", name="entriesIndex")
+     * @Route("/{page}", name="entriesIndex", defaults={"page"=1})
      */
-    public function indexAction()
+    public function indexAction($page)
     {
+        $pageSize = 5;
         $em = $this->getDoctrine()->getManager();
         $entry_repo = $em->getRepository('BlogBundle:Entry');
         $category_repo = $em->getRepository('BlogBundle:Category');
-        $entries = $entry_repo->findAll();
+        $entries = $entry_repo->getPaginateEntries($pageSize, $page);
         $categories = $category_repo->findAll();
-        return $this->render('BlogBundle:Default:index.html.twig', array('entries' => $entries, 'categories' => $categories));
+
+        $totalItems = count($entries);
+        $pagesCount = ceil($totalItems / $pageSize);
+        return $this->render('BlogBundle:Default:index.html.twig', array(
+            'entries' => $entries,
+            'categories' => $categories,
+            'totalItems' => $totalItems,
+            'pagesCount' => $pagesCount,
+            'currentPage' => $page));
     }
 
     /**
