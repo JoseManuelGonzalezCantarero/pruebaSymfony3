@@ -3,11 +3,6 @@
     {% include 'BlogBundle:Category:menu.categories.html.twig' %}
 {% endblock %}
 {% block content %}
-    {% for message in app.session.flashBag().get('status') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
     {% for entry in entries %}
         <div class="col-lg-11">
             <p class="pull-left" style="margin-right: 20px;">
@@ -37,25 +32,25 @@
 
     {% endfor %}
     {% if (pagesCount >= 2) %}
-    <ul class="pagination">
-        <li>
-            {% if (currentPage == 1) %}
-            <a href="#">&laquo;</a>
-            {% else %}
-                <a href="{{ path('entriesIndex', {'page': (currentPage - 1)}) }}">&laquo;</a>
-            {% endif %}
-        </li>
+        <ul class="pagination">
+            <li>
+                {% if (currentPage == 1) %}
+                    <a href="#">&laquo;</a>
+                {% else %}
+                    <a href="{{ path('categoryRead', {'id': category.id, 'page': (currentPage - 1)}) }}">&laquo;</a>
+                {% endif %}
+            </li>
             {% for page in 1..pagesCount %}
-                <li><a href="{{ path('entriesIndex', {'page': page}) }}">{{ page }}</a></li>
+                <li><a href="{{ path('categoryRead', {'id': category.id, 'page': page}) }}">{{ page }}</a></li>
             {% endfor %}
-        <li>
-            {% if ( currentPage == pagesCount) %}
-                <a href="#">&raquo;</a>
-            {% else %}
-                <a href="{{ path('entriesIndex', {'page': (currentPage + 1)}) }}">&raquo;</a>
-            {% endif %}
-        </li>
-    </ul>
+            <li>
+                {% if ( currentPage == pagesCount) %}
+                    <a href="#">&raquo;</a>
+                {% else %}
+                    <a href="{{ path('categoryRead', {'id': category.id, 'page': (currentPage + 1)}) }}">&raquo;</a>
+                {% endif %}
+            </li>
+        </ul>
     {% endif %}
     <div class="clearfix"></div>
 {% endblock %}
