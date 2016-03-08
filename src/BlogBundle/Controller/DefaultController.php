@@ -4,6 +4,7 @@ namespace BlogBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
@@ -52,15 +53,13 @@ class DefaultController extends Controller
         $tag_repo = $em->getRepository("BlogBundle:Tag");
         $tags = $tag_repo->findAll();
 
-        foreach($tags as $tag)
-        {
-            echo $tag->getName().'<br>';
+        foreach ($tags as $tag) {
+            echo $tag->getName() . '<br>';
 
             $entryTag = $tag->getEntryTag();
 
-            foreach($entryTag as $entry)
-            {
-                echo $entry->getEntry()->getTitle().", ";
+            foreach ($entryTag as $entry) {
+                echo $entry->getEntry()->getTitle() . ", ";
             }
             echo '<hr>';
         }
@@ -77,4 +76,12 @@ class DefaultController extends Controller
 //    {
 //        return $this->render('BlogBundle:Default:index.html.twig');
 //    }
+
+    /**
+     * @Route("/lang/{_locale}", name="lang")
+     */
+    public function langAction(Request $request)
+    {
+        return $this->redirectToRoute('entriesIndex');
+    }
 }
