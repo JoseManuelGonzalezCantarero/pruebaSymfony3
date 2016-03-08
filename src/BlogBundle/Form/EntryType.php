@@ -49,7 +49,7 @@ class EntryType extends AbstractType
                     "class" => "form-control",
                 ),
                 "data_class" => null,
-                "required" => ""
+                "required" => false
             ))
 //            ->add('user', EntityType::class, array(
 //                "label" => "Título",
@@ -68,7 +68,7 @@ class EntryType extends AbstractType
                 "attr" => array(
                     "class" => "form-control"
                 ),
-                "required" => ""
+                "required" => false
             ))
             ->add('Guardar', SubmitType::class, array("attr"=>array(
                 "class" => "form-submit btn btn-success"

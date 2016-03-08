@@ -63,12 +63,16 @@ class EntryController extends Controller
                 $entry->setStatus($form->get('status')->getData());
                 //upload image
                 $file = $form['image']->getData();
-                if(isset($file))
+                if(!empty($file) && $file != null)
                 {
                     $ext = $file->guessExtension();
                     $file_name = time().".".$ext;
                     $file->move("uploads", $file_name);
                     $entry->setImage($file_name);
+                }
+                else
+                {
+                    $entry->setImage(null);
                 }
                 $category = $category_repo->find($form->get('category')->getData());
                 $entry->setCategory($category);
@@ -140,6 +144,7 @@ class EntryController extends Controller
         $entry_repo = $em->getRepository('BlogBundle:Entry');
         $category_repo = $em->getRepository('BlogBundle:Category');
         $entry = $entry_repo->find($id);
+        $entry_image = $entry->getImage();
         $tags = '';
         $i = 0;
         $total = count($entry->getEntryTag());
@@ -165,12 +170,16 @@ class EntryController extends Controller
             $entry->setStatus($form->get('status')->getData());
             //upload image
             $file = $form['image']->getData();
-            if(isset($file))
+            if(!empty($file) && $file != null)
             {
                 $ext = $file->guessExtension();
                 $file_name = time().".".$ext;
                 $file->move("uploads", $file_name);
                 $entry->setImage($file_name);
+            }
+            else
+            {
+                $entry->setImage($entry_image);
             }
 
             $category = $category_repo->find($form->get('category')->getData());

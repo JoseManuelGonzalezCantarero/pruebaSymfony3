@@ -28,7 +28,7 @@ security:
                 path: /logout
                 target: /login
     access_control:
-        - { path: ^/tags, roles: ROLE_ADMIN, ROLE_USER}
+        - { path: ^/tags, roles: [ROLE_ADMIN, ROLE_USER]}
         - { path: ^/categories, roles: ROLE_ADMIN}
             # activate different ways to authenticate
 
