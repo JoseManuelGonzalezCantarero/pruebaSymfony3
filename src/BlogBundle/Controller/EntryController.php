@@ -19,7 +19,7 @@ class EntryController extends Controller
     }
 
     /**
-     * @Route("/{page}", name="entriesIndex", defaults={"page"=1})
+     * @Route("/home/{page}", name="entriesIndex", defaults={"page"=1})
      */
     public function indexAction($page)
     {
